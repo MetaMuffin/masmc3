@@ -8,9 +8,10 @@ export function builtin_default(command: string): (...args: string[]) => string 
 }
 
 export function builtin_constant(name: string): string | undefined {
-    if (name == "None") return "null"
-    if (name == "True") return "1"
-    if (name == "False") return "0"
+    if (name == "null") return "null"
+    if (name == "thing_null") return "null"
+    if (name == "true") return "1"
+    if (name == "false") return "0"
     if (name.toUpperCase() != name) return
     if (!"UPFI".split("").includes(name[0])) return
     if (name[1] != "_") return

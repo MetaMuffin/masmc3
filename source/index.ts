@@ -2,6 +2,7 @@ import { spawn } from "child_process"
 import { transpile } from "./transpiler";
 import { AST } from "./ast";
 import { resolve_jump_marks } from "./post";
+import { join } from "path/posix";
 
 
 
@@ -16,7 +17,7 @@ export async function loadAST(filename: string): Promise<AST> {
 }
 
 async function main() {
-    const ast = await loadAST("./input/test.c")
+    const ast = await loadAST(process.argv[2])
     // console.log(ast);
     const code = transpile({}, ast).code
     // console.log(code);

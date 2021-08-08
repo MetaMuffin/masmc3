@@ -24,6 +24,7 @@ export type NodeKind = "TranslationUnitDecl"
     | "UnaryOperator"
     | "WhileStmt"
     | "CompoundAssignOperator"
+    | "ParenExpr"
 
 export interface AST {
     id: string
@@ -33,6 +34,7 @@ export interface AST {
 
     inner?: AST[]
 
+    isPostfix?: boolean,
     opcode?: string
     loc?: {
         offset: number
