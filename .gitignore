@@ -1,0 +1,6 @@
+/scripts/*.json
+/scripts/*
+!/scripts/example_*.c
+!/scripts/mindustry.h
+/node_modules
+
