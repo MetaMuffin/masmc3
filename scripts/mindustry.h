@@ -23,7 +23,7 @@ void draw_line_rect(float x, float y, float w, float h);
 void draw_poly(float x, float y, float sides, float radius, float rotation);
 void draw_line_poly(float x, float y, float sides, float radius, float rotation);
 void draw_triangle(float x1, float y1, float x2, float y2, float x3, float y3);
-void draw_image(float x, float y, float image, float size, float rotation);
+void draw_image(float x, float y, Thing image, float size, float rotation);
 void draw_flush(Thing target);
 
 void print(float message);
