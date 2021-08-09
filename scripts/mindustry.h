@@ -29,6 +29,8 @@ void draw_flush(Thing target);
 void print(float message);
 void print_flush(Thing target);
 
+Thing radar_player(Thing from, float order);
+
 float min(float x, float y);
 float max(float x, float y);
 float sin(float x);

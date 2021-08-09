@@ -45,5 +45,8 @@ export const BUILTIN_FUNCTIONS: { [key: string]: (...args: string[]) => [boolean
 
     read: builtin_default("read __return"),
     write: builtin_default("write"),
+
+    radar_player: (from, order) =>  [true, `radar player any any distance ${from} ${order} __return\n`]
 }
+
 
