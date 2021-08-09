@@ -1,9 +1,10 @@
 import { snake_to_camel } from "./helper";
 import { TResult } from "./masm";
 
-export function builtin_default(command: string): (...args: string[]) => string {
+
+export function builtin_default(command: string): (...args: string[]) => [boolean, string] {
     return (...args) => {
-        return command + " " + args.join(" ") + "\n"
+        return [command.search("__return") != -1, command + " " + args.join(" ") + "\n"]
     }
 }
 
@@ -18,7 +19,7 @@ export function builtin_constant(name: string): string | undefined {
     return "@" + snake_to_camel(name.substr(2))
 }
 
-export const BUILTIN_FUNCTIONS: { [key: string]: (...args: string[]) => string } = {
+export const BUILTIN_FUNCTIONS: { [key: string]: (...args: string[]) => [boolean, string] } = {
     sensor: builtin_default("sensor __return"),
 
     control_enabled: builtin_default("control enabled"),

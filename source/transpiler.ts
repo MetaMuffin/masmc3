@@ -43,7 +43,7 @@ export function transpile(ctx: TContext, node: AST): TResult {
             const mark = create_tagged_mark("func_" + name)
             const return_counter = `__return_${name}`
             const func = {
-                args, jump_ref: mark.ref, name, return_counter
+                args, jump_ref: mark.ref, name, return_counter, returns_value: true
             }
             user_functions.set(name, func)
 
@@ -163,9 +163,9 @@ export function transpile(ctx: TContext, node: AST): TResult {
             const args_code = args.reduce((a, v) => a + v.code, "")
 
             const builtin = BUILTIN_FUNCTIONS[func]
-            let call
+            let call, returns_value
             if (builtin) {
-                call = builtin(...args_values)
+                [returns_value, call] = builtin(...args_values)
             } else {
                 const f = user_functions.get(func)
                 if (!f) throw new Error("unknown user function " + func);
@@ -174,6 +174,7 @@ export function transpile(ctx: TContext, node: AST): TResult {
                     m_op("add", f.return_counter, masm_builtin_pc, "1")
                     + m_jump(f.jump_ref, "always")
             }
+            if (!returns_value) return { code: args_code + call }
             let temp = temp_var()
             call += m_set(temp, "__return")
             return {

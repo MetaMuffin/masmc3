@@ -22,6 +22,7 @@ export interface UserFunction {
     jump_ref: string
     return_counter: string
     args: string[]
+    returns_value: boolean
 }
 
 export const M_OP_MAPPING: { [key: string]: OpMode } = {
