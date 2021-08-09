@@ -120,6 +120,7 @@ export function transpile(ctx: TContext, node: AST): TResult {
                 return { code: r.code + m_set(l.result, r.result), result: l.result }
             }
             const target = temp_var()
+            if (!M_OP_MAPPING[node.opcode]) throw new Error("dskljfahsduirzwesuir 1 " + node.opcode);
             return {
                 code: l.code + r.code + m_op(M_OP_MAPPING[node.opcode], target, l.result, r.result),
                 result: target
@@ -133,8 +134,10 @@ export function transpile(ctx: TContext, node: AST): TResult {
             if (!l.result) throw new Error("iweauriosdhfgkj");
             if (!r.result) throw new Error("saduifzuwezrjsdf");
             if (l.code.length) throw new Error("ohnononononono2");
+            if (!M_COMPOUND_OP_MAPPING[node.opcode]) throw new Error("dskljfahsduirzwesuir 2" + node.opcode);
             return {
-                code: r.code + m_op(M_COMPOUND_OP_MAPPING[node.opcode], l.result, l.result, r.result)
+                code: r.code + m_op(M_COMPOUND_OP_MAPPING[node.opcode], l.result, l.result, r.result),
+                result: l.result
             }
         },
         UnaryOperator: () => {
@@ -151,6 +154,8 @@ export function transpile(ctx: TContext, node: AST): TResult {
             } else {
                 if (node.opcode == "++") return { code: m_op("add", lv, lv, "1"), result: lv }
                 if (node.opcode == "--") return { code: m_op("sub", lv, lv, "1"), result: lv }
+                let temp = temp_var()
+                if (node.opcode == "-") return { code: m_op("mul", temp, lv, "-1"), result: temp }
             }
             throw new Error("asdfhsdkfjlhsdkjf");
         },

@@ -30,14 +30,22 @@ export const M_OP_MAPPING: { [key: string]: OpMode } = {
     "-": "sub",
     "*": "mul",
     "/": "div",
+    "%": "mod",
     "&&": "band",
     "==": "equal",
     "!=": "notEqual",
+    "<": "lessThan",
+    ">": "greaterThan",
+    "<=": "lessThanEq",
+    ">=": "greaterThanEq",
+    "<<": "shl",
+    ">>": "shr",
 }
 export const M_COMPOUND_OP_MAPPING: { [key: string]: OpMode } = {
     "+=": "add",
     "-=": "sub",
     "*=": "mul",
+    "/=": "div",
 }
 
 function m_generic(prefix: string): (...args: (string | undefined)[]) => string {
@@ -48,6 +56,7 @@ export type OpMode = "add" | "sub" | "mul" | "div" | "idiv" | "mod" | "shl" | "s
     | "noise" | "angle" | "len" | "rand"
     | "sin" | "cos" | "tan" | "atan" | "acos" | "asin"
     | "and" | "or" | "not" | "band" | "equal" | "notEqual"
+    | "lessThan" | "greaterThan" | "lessThanEq" | "greaterThanEq"
 
 export const m_set: (l: string, r: string) => string = m_generic("set")
 export const m_op: (mode: OpMode, t: string, l?: string, r?: string) => string = m_generic("op")
