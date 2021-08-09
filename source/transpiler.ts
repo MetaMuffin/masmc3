@@ -74,7 +74,9 @@ export function transpile(ctx: TContext, node: AST): TResult {
         IntegerLiteral: () => {
             return { code: "", result: node.value ?? "0" }
         },
-
+        FloatingLiteral: () => {
+            return { code: "", result: node.value ?? "0" }
+        },
         IfStmt: () => {
             const condition = transpile_nth_inner(0)
             const body = transpile_nth_inner(1)

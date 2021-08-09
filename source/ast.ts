@@ -25,6 +25,7 @@ export type NodeKind = "TranslationUnitDecl"
     | "WhileStmt"
     | "CompoundAssignOperator"
     | "ParenExpr"
+    | "FloatingLiteral"
 
 export interface AST {
     id: string

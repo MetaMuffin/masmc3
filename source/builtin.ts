@@ -1,5 +1,5 @@
 import { snake_to_camel } from "./helper";
-import { TResult } from "./masm";
+import { masm_builtin_pc, masm_builtin_this, masm_builtin_tick, masm_builtin_time, TResult } from "./masm";
 
 
 export function builtin_default(command: string): (...args: string[]) => [boolean, string] {
@@ -14,6 +14,10 @@ export function builtin_constant(name: string): string | undefined {
     if (name == "true") return "1"
     if (name == "false") return "0"
     if (name.toUpperCase() != name) return
+    if (name == "C_TICK") return masm_builtin_tick
+    if (name == "C_TIME") return masm_builtin_time
+    if (name == "C_COUNTER") return masm_builtin_pc
+    if (name == "C_THIS") return masm_builtin_this
     if (!"UPFI".split("").includes(name[0])) return
     if (name[1] != "_") return
     return "@" + snake_to_camel(name.substr(2))
@@ -46,7 +50,7 @@ export const BUILTIN_FUNCTIONS: { [key: string]: (...args: string[]) => [boolean
     read: builtin_default("read __return"),
     write: builtin_default("write"),
 
-    radar_player: (from, order) =>  [true, `radar player any any distance ${from} ${order} __return\n`]
+    radar_player: (from, order) => [true, `radar player any any distance ${from} ${order} __return\n`]
 }
 
 
